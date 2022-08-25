@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { TextField } from "@mui/material";
+import { CircularProgress, InputAdornment, TextField } from "@mui/material";
 import { BaseTextFieldProps } from "@mui/material/TextField/TextField";
 import { LatLng } from "../../types";
 import { useDebounce } from "../../hooks/useDebounce";
 import { useGeocode } from "../../api/useGeocode";
+import { CheckCircle, Error, MyLocation } from "@mui/icons-material";
 
 interface GeoLocationInputProps
   extends Omit<BaseTextFieldProps, "onChange" | "value"> {
@@ -16,7 +17,7 @@ export const GeoLocationInput = ({
 }: GeoLocationInputProps) => {
   const [value, setValue] = useState("");
   const debouncedValue = useDebounce(value, 500);
-  const { data, error, isLoading } = useGeocode(debouncedValue);
+  const { data, error, isFetching } = useGeocode(debouncedValue);
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
   };
@@ -31,5 +32,29 @@ export const GeoLocationInput = ({
       }
     }
   }, [data, setLocation]);
-  return <TextField {...rest} onChange={handleChange} value={value} />;
+
+  const isError = Boolean(error || (data?.results && data.results.length < 1));
+
+  const adornment = () => {
+    if (isFetching) return <CircularProgress size={24} />;
+    if (data?.results && data.results.length > 0)
+      return <CheckCircle color="success" />;
+    if (isError) return <Error color="error" />;
+    return <MyLocation />;
+  };
+
+  return (
+    <TextField
+      {...rest}
+      onChange={handleChange}
+      value={value}
+      error={isError}
+      helperText={isError && "Couldn't find address"}
+      InputProps={{
+        endAdornment: (
+          <InputAdornment position="end">{adornment()}</InputAdornment>
+        ),
+      }}
+    />
+  );
 };
