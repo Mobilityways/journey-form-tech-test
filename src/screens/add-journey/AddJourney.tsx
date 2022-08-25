@@ -1,14 +1,18 @@
 import React, { useState } from "react";
-import { Grid } from "@mui/material";
+import { Grid, TextField } from "@mui/material";
 import { GoogleMapWrapper } from "../../components/atoms/GoogleMapWrapper";
 import { GoogleMap } from "../../components/atoms/GoogleMap";
 import { Marker } from "../../components/atoms/Marker";
 import { LatLng } from "../../types";
 import { GeoLocationInput } from "../../components/molecules/GeoLocationInput";
+import { DatePicker } from "@mui/x-date-pickers";
+import { Dayjs } from "dayjs";
 
 export const AddJourney = () => {
   const [origin, setOrigin] = useState<LatLng | null>(null);
   const [destination, setDestination] = useState<LatLng | null>(null);
+  const [departureDate, setDepartureDate] = useState<Dayjs | null>(null);
+  const [returnDate, setReturnDate] = useState<Dayjs | null>(null);
 
   return (
     <Grid container sx={{ height: "100vh" }}>
@@ -16,7 +20,29 @@ export const AddJourney = () => {
         <form>
           <GeoLocationInput setLocation={setOrigin} label="Origin" />
           <GeoLocationInput setLocation={setDestination} label="Destination" />
-          <pre>{JSON.stringify({ origin, destination }, null, 2)}</pre>
+          <DatePicker
+            label="Departure Date"
+            value={departureDate}
+            onChange={(newValue) => {
+              setDepartureDate(newValue);
+            }}
+            renderInput={(params) => <TextField {...params} />}
+          />
+          <DatePicker
+            label="Return Date"
+            value={returnDate}
+            onChange={(newValue) => {
+              setReturnDate(newValue);
+            }}
+            renderInput={(params) => <TextField {...params} />}
+          />
+          <pre>
+            {JSON.stringify(
+              { origin, destination, departureDate, returnDate },
+              null,
+              2
+            )}
+          </pre>
         </form>
       </Grid>
       <Grid item md={7}>
