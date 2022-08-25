@@ -21,7 +21,11 @@ export const AddJourney = () => {
       </Grid>
       <Grid item md={7}>
         <GoogleMapWrapper>
-          <GoogleMap center={{ lat: 53.4462023, lng: -2.2649167 }} zoom={12}>
+          <GoogleMap
+            center={{ lat: 53.4462023, lng: -2.2649167 }}
+            zoom={6}
+            markers={[origin, destination]}
+          >
             <Marker position={origin} />
             <Marker position={destination} />
           </GoogleMap>
