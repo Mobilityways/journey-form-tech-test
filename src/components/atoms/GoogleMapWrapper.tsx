@@ -6,6 +6,10 @@ interface GoogleMapWrapperProps {
   children: ReactElement;
 }
 
+/**
+ * Wrapper for Google Map components.
+ * See https://developers.google.com/maps/documentation/javascript/react-map
+ */
 export const GoogleMapWrapper = ({ children }: GoogleMapWrapperProps) => {
   const render = (status: Status): ReactElement => {
     if (status === Status.FAILURE)
