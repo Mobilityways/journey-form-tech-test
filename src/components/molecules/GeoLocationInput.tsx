@@ -46,6 +46,7 @@ export const GeoLocationInput = ({
   return (
     <TextField
       {...rest}
+      fullWidth
       onChange={handleChange}
       value={value}
       error={isError}
