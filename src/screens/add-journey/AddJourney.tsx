@@ -53,7 +53,7 @@ export const AddJourney = () => {
                 onChange={(newValue) => {
                   setDepartureDate(newValue);
                 }}
-                renderInput={(params) => <TextField {...params} />}
+                renderInput={(params) => <TextField fullWidth {...params} />}
               />
             </Grid>
             <Grid item sm={6}>
@@ -63,7 +63,7 @@ export const AddJourney = () => {
                 onChange={(newValue) => {
                   setReturnDate(newValue);
                 }}
-                renderInput={(params) => <TextField {...params} />}
+                renderInput={(params) => <TextField fullWidth {...params} />}
               />
             </Grid>
             <Grid item sm={12}>
