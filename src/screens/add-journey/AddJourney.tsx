@@ -1,18 +1,27 @@
 import React, { useState } from "react";
-import { Grid, TextField } from "@mui/material";
+import axios from "axios";
+import { Button, Grid, TextField } from "@mui/material";
+import { DatePicker } from "@mui/x-date-pickers";
+import { Dayjs } from "dayjs";
 import { GoogleMapWrapper } from "../../components/atoms/GoogleMapWrapper";
 import { GoogleMap } from "../../components/atoms/GoogleMap";
 import { Marker } from "../../components/atoms/Marker";
 import { LatLng } from "../../types";
 import { GeoLocationInput } from "../../components/molecules/GeoLocationInput";
-import { DatePicker } from "@mui/x-date-pickers";
-import { Dayjs } from "dayjs";
 
 export const AddJourney = () => {
   const [origin, setOrigin] = useState<LatLng | null>(null);
   const [destination, setDestination] = useState<LatLng | null>(null);
   const [departureDate, setDepartureDate] = useState<Dayjs | null>(null);
   const [returnDate, setReturnDate] = useState<Dayjs | null>(null);
+
+  const handleSubmit = (event: any) => {
+    event.preventDefault();
+    // TODO: real submit endpoint
+    axios.post("/wherever", { origin, destination, departureDate, returnDate });
+  };
+
+  const formOk = origin && destination && departureDate && returnDate;
 
   return (
     <Grid container sx={{ height: "100vh" }}>
@@ -36,13 +45,16 @@ export const AddJourney = () => {
             }}
             renderInput={(params) => <TextField {...params} />}
           />
-          <pre>
-            {JSON.stringify(
-              { origin, destination, departureDate, returnDate },
-              null,
-              2
-            )}
-          </pre>
+          <Button
+            type="submit"
+            onClick={handleSubmit}
+            variant="contained"
+            color="primary"
+            size="large"
+            disabled={!formOk}
+          >
+            Submit
+          </Button>
         </form>
       </Grid>
       <Grid item md={7}>
