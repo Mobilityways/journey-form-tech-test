@@ -18,7 +18,7 @@ export const GoogleMapWrapper = ({ children }: GoogleMapWrapperProps) => {
   };
 
   return (
-    <Wrapper apiKey={process.env.REACT_APP_API_KEY} render={render}>
+    <Wrapper apiKey={import.meta.env.VITE_GAPI_KEY} render={render}>
       {children}
     </Wrapper>
   );

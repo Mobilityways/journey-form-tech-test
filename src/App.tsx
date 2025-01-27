@@ -1,5 +1,4 @@
 import React from "react";
-import "./App.css";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { AddJourney } from "./screens/add-journey/AddJourney";
