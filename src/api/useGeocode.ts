@@ -9,7 +9,7 @@ const getGeocode = (search: string) =>
       {
         params: {
           address: search,
-          key: process.env.REACT_APP_API_KEY,
+          key: import.meta.env.VITE_GAPI_KEY,
         },
       }
     )

@@ -8,6 +8,7 @@ import { GoogleMap } from "../../components/atoms/GoogleMap";
 import { Marker } from "../../components/atoms/Marker";
 import { LatLng } from "../../types";
 import { GeoLocationInput } from "../../components/molecules/GeoLocationInput";
+import { LatLonDisplay } from "../../components/atoms/LatLonDisplay";
 
 export const AddJourney = () => {
   const [origin, setOrigin] = useState<LatLng | null>(null);
@@ -39,12 +40,14 @@ export const AddJourney = () => {
             </Grid>
             <Grid item sm={12}>
               <GeoLocationInput setLocation={setOrigin} label="Origin" />
+              {origin && <LatLonDisplay latLng={origin} />}
             </Grid>
             <Grid item sm={12}>
               <GeoLocationInput
                 setLocation={setDestination}
                 label="Destination"
               />
+              {destination && <LatLonDisplay latLng={destination} />}
             </Grid>
             <Grid item sm={6}>
               <DatePicker
